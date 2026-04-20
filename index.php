@@ -1,31 +1,27 @@
-<?php
-session_start(); [cite: 97]
-require "config.php"; [cite: 33]
+session_start();
 
-$page = $_GET['page'] ?? 'login'; [cite: 98]
+$page = $_GET['page'] ?? 'login';
 
-// نظام التوجيه (Routing) [cite: 99]
 switch ($page) {
     case 'login':
-        (new AuthController())->login(); [cite: 102]
+        require 'controllers/AuthController.php';
         break;
 
     case 'admin.dashboard':
-        requireRole('admin'); [cite: 105]
-        (new AdminController())->dashboard(); [cite: 105]
+        requireRole('admin');
+        require 'controllers/AdminController.php';
         break;
 
     case 'professor.grades':
-        requireRole('professor'); [cite: 108]
-        (new ProfessorController())->grades(); [cite: 108]
+        requireRole('professor');
+        require 'controllers/ProfessorController.php';
         break;
 
     case 'student.dashboard':
-        requireRole('student'); [cite: 112]
-        (new StudentController())->dashboard(); [cite: 112]
+        requireRole('student');
+        require 'controllers/StudentController.php';
         break;
 
     default:
-        header("Location: ?page=login"); [cite: 113]
+        header("Location: ?page=login");
 }
-?>
